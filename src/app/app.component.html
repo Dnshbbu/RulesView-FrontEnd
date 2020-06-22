@@ -1,0 +1,637 @@
+<!--The content below is only a placeholder and can be replaced.-->
+
+
+<mat-drawer-container class="example-container" autosize >
+  <!-- Left side pane-->
+  <mat-drawer #drawer1 class="example-sidenav-left1" mode="side" opened="true">
+  <mat-accordion >
+    <mat-expansion-panel >
+      <mat-expansion-panel-header  [collapsedHeight]="'30px'" [expandedHeight]="'30px'">
+        <mat-panel-title   class="input-headline">
+          <h6>Search</h6>
+        </mat-panel-title>
+        <mat-panel-description class="input-headline">
+
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="matcontent">
+
+      <mat-form-field  class="input-headline">
+        <input matInput placeholder="Search Nodes" [formControl]="nodesearch">
+      </mat-form-field>
+
+
+      <p>
+        <button mat-flat-button class="medium-button" color="primary" (click)="SearchNode()">Submit</button>
+        </p>
+
+      <mat-form-field  class="input-headline" >
+        <input matInput placeholder="Search Relationship type"  [formControl]="relsearch">
+      </mat-form-field>
+
+      <mat-form-field  class="input-headline">
+        <input matInput placeholder="Limit"  [formControl]="rellimit">
+      </mat-form-field>
+
+        <p>
+        <button mat-flat-button class="medium-button" color="primary" (click)="SearchRel()">Submit</button>
+        </p>
+
+      <mat-form-field class="input-headline">
+        <input matInput placeholder="Source" [formControl]="path_src">
+      </mat-form-field>
+
+      <mat-form-field class="input-headline">
+        <input matInput placeholder="Destination" [formControl]="path_dest">
+      </mat-form-field>
+
+      <p>
+        <button mat-flat-button class="medium-button" color="primary" (click)="SearchPath()">Submit</button>
+        </p>
+        </div>
+    </mat-expansion-panel>
+
+
+
+  <mat-expansion-panel>
+      <mat-expansion-panel-header   [collapsedHeight]="'30px'" [expandedHeight]="'30px'">
+        <mat-panel-title class="input-headline">
+          <h6>Default Queries</h6>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="matcontent">
+  <p>
+  <button mat-button id="default01" class="extended2-button" (click)="DefaultRules('default01')">Insecure protocols(telnet,ftp)</button>
+  </p>
+  <p>
+  <button mat-button id="default02" class="extended2-button" (click)="DefaultRules('default02')">Rules with service "Any"</button>
+  </p>
+  <p>
+    <button mat-button id="default02" class="extended2-button" (click)="DefaultRules('default02')">Internal to External connections</button>
+    </p>
+    <p>
+      <button mat-button id="default02" class="extended2-button" (click)="DefaultRules('default02')">External to Internal connections</button>
+      </p>
+      </div>
+    </mat-expansion-panel>
+
+
+
+  <mat-expansion-panel>
+      <mat-expansion-panel-header  [collapsedHeight]="'30px'" [expandedHeight]="'30px'">
+        <mat-panel-title class="input-headline">
+          <h6>Custom Cypher Queries</h6>
+        </mat-panel-title>
+        <mat-panel-description class="input-headline">
+
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+    <mat-form-field class="input-headline">
+      <mat-label>Search Neo4j</mat-label>
+      <textarea
+          matInput
+          cdkTextareaAutosize
+          cdkAutosizeMinRows="3"
+          cdkAutosizeMaxRows="10" [formControl]="cust_query">
+      </textarea>
+  </mat-form-field>
+    <p>
+      <button mat-flat-button color="primary" class="medium-button" (click)="CustQuery()">Submit</button>
+    </p>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+      <mat-expansion-panel-header (click)="get_allrels()"  [collapsedHeight]="'30px'" [expandedHeight]="'30px'">
+        <mat-panel-title class="input-headline">
+          <h6>Get all Relationships</h6>
+        </mat-panel-title>
+    </mat-expansion-panel-header>
+
+<div class="matcontent">
+  <div class="chip-div" class="allrels">
+  <mat-chip-list >
+      <p class="p1" *ngFor="let hero of allrels">
+      <mat-chip id="relbutton" [value]="hero.rels" (click)="get_rels($event)" color="primary" selected>{{ hero.rels }}</mat-chip>
+     </p>
+  </mat-chip-list>
+  </div>
+</div>
+  </mat-expansion-panel>
+
+
+
+
+  <mat-expansion-panel>
+      <mat-expansion-panel-header  [collapsedHeight]="'30px'" [expandedHeight]="'30px'">
+        <mat-panel-title class="input-headline">
+          <h6>Add Groups to Database</h6>
+        </mat-panel-title>
+        <mat-panel-description class="input-headline">
+
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="matcontent">
+
+      <mat-form-field class="input-headline">
+        <input matInput placeholder="Add your own grouping(10.0.0.0/8 or 10.0.0.0/255.255.255.0)" [formControl]="groupips">
+      </mat-form-field>
+
+      <mat-form-field class="input-headline">
+        <input matInput placeholder="Group Name" [formControl]="groupname">
+      </mat-form-field>
+      <p><label for="head">Select Color:</label></p>
+      <input matInput type="color" id="head" name="head" value="#e66465" [formControl]="groupcolor">
+
+
+      <p>
+        <button mat-flat-button color="primary" class="medium-button" (click)="CreateGroup()">Submit</button>
+        </p>
+        </div>
+    </mat-expansion-panel>
+
+  <mat-expansion-panel>
+      <mat-expansion-panel-header   [collapsedHeight]="'30px'" [expandedHeight]="'30px'">
+        <mat-panel-title class="input-headline">
+          <h6>Change Layouts</h6>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+  <mat-form-field>
+
+
+    <mat-select class="input-headline" [(ngModel)]="lay" [formControl]="layoutselect" >
+      <mat-option  *ngFor="let lay of layouts" [value]="lay.value" >
+        {{lay.viewValue}}
+      </mat-option>
+    </mat-select>
+    </mat-form-field>
+    <p><button mat-flat-button class="extended-button" color="primary" (click)="refreshgraph()">Change Layout</button></p>
+    </mat-expansion-panel>
+
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header  [collapsedHeight]="'30px'" [expandedHeight]="'30px'">
+        <mat-panel-title class="input-headline">
+          <h6>Risk calculator</h6>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="matcontent">
+    <p><button mat-raised-button class="extended-button" (click)="openDialogWithTemplateRef(RiskCalculateDialog)">Risk calc config</button></p>
+    <p><button mat-raised-button class="extended-button"(click)="recalculateRisk()">Calculate Risk</button></p>
+    </div>
+    </mat-expansion-panel>
+
+
+
+  </mat-accordion>
+ </mat-drawer>
+
+<!-- RiskCalculator dialog-->
+<ng-template #RiskCalculateDialog>
+  <h2 matDialogTitle>Risk Calculator</h2>
+  <mat-dialog-content>
+
+    <mat-tab-group>
+      <mat-tab label="Risk Calculator">
+        <mat-accordion >
+
+
+          <app-risk-config ></app-risk-config>
+          <!-- </mat-expansion-panel> -->
+        </mat-accordion>
+
+
+
+      </mat-tab>
+    </mat-tab-group>
+      </mat-dialog-content>
+      <mat-dialog-actions align="end">
+
+        <button mat-button matDialogClose color="primary">Dismiss</button>
+      </mat-dialog-actions>
+    </ng-template>
+
+
+ <!-- Right side pane-->
+    <mat-drawer #drawer2 class="example-sidenav-right1" mode="side" position="end" opened="true">
+    <div class="properties">
+      <div class="nodeheading">
+        <h6>Filter Graph</h6>
+      </div>
+      <mat-form-field  class="input-headline">
+        <input matInput placeholder="Filter Edges" [formControl]="myControl" >
+      </mat-form-field>
+      <div id="nodeprop" class="node-prop">
+        <p class="zoomtoedges" name="zoomtoedges" *ngFor="let option of filteredOptions | async" id="{{option.id}}" >{{ option.nodeprop }} </p>
+        </div>
+    </div>
+    <div class="properties2">
+        <div class="nodeheading">
+          <h6>Properties</h6>
+        </div>
+        <div class="displayprop">
+          <p class="p1"  *ngFor="let entry of displayprop ">{{ entry.keyvalue }}:{{ entry.valuevalue }} </p>
+        </div>
+    </div>
+
+  </mat-drawer>
+
+ <!-- Toolbar-->
+<div class="splittoolbar">
+  <div class="branding">
+      <span>
+      <h4>
+      RulesView
+      </h4>
+      </span>
+  </div>
+  <div class="toolbaricons">
+      <span>
+      <button type="button"  mat-icon-button (click)="drawer1.toggle()" class="material-icons" matTooltip="Toogle Left pane">
+        swap_horiz
+      </button>
+
+      <button type="button" mat-icon-button (click)="refreshgraph()" class="material-icons" matTooltip="Refresh graph">
+            refresh
+      </button>
+
+      <button type="button" mat-icon-button id="download" class="material-icons" matTooltip="Download as PNG">
+            cloud_download
+      </button>
+
+      <button type="button" mat-icon-button  (click)="openDialogWithTemplateRef(myDialog)" class="material-icons" matTooltip="Upload data">
+            cloud_upload
+      </button>
+      <button type="button" mat-icon-button (click)="GrpHeirarchy()" class="material-icons" matTooltip="Groups">
+        group_work
+      </button>
+      <button type="button" mat-icon-button (click)="GrpHeirarchy()" class="material-icons" matTooltip="Groups">
+        view_compact
+      </button>
+      <button type="button" mat-icon-button (click)="drawer3.toggle()" class="material-icons" matTooltip="Toggle Rules Table view">
+        view_list
+      </button>
+      <button type="button" mat-icon-button id="mZ"  class="material-icons" matTooltip="Zoom selected area">
+        aspect_ratio
+      </button>
+      <button type="button" mat-icon-button id="expandall"  class="material-icons" matTooltip="Expand all groups">
+        add_circle
+      </button>
+      <button type="button" mat-icon-button id="collapseall"  class="material-icons" matTooltip="Collapase all groups">
+        remove_circle
+      </button>
+
+      <button type="button" mat-icon-button (click)="drawer2.toggle()" class="material-icons" matTooltip="Toogle Right pane">
+        swap_horiz
+      </button>
+      </span>
+  </div>
+  <div id ="DynamicValueAssignedHere" class="searchnodesandrels">
+      <mat-form-field class="input-headline"appearance="fill" >
+        <input  id="selectednodevalue" matInput placeholder="Filter Nodes" [formControl]="myControlNodes" [matAutocomplete]="auto" >
+        <mat-autocomplete  #auto="matAutocomplete">
+        <mat-option  *ngFor="let option of filteredOptionsNodes | async" [value]="option">
+        {{option}}
+        </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <button type="button" id="zoomtoselectnodes" mat-icon-button class="material-icons" matTooltip="Filter nodes in graph">
+      search
+      </button>
+    </div>
+</div>
+
+<!-- Progress bar-->
+<div [hidden]=isLoadingHidden class="splittoolbar-progressbar">
+  <mat-progress-bar mode="buffer"></mat-progress-bar>
+</div>
+
+
+ <!-- Upload dialog-->
+  <ng-template #myDialog>
+    <h2 matDialogTitle>Upload..</h2>
+    <mat-dialog-content>
+
+    <mat-tab-group>
+    <mat-tab label="Upload Rules">
+
+<div class="uploadcontainer">
+
+    <form [formGroup]="UploadForm">
+      <input (change)="fileChange($event)" type="file" class="file" name="uploadfiles" formControlName="fileinput" accept=".csv"/>
+    </form>
+<!--
+
+<div class="col-md-4 input-group fileupload">
+
+    <input class="form-control" type="text"/>
+    <div class="input-group-btn">
+        <label for="files" class="btn btn-default">browse</label>
+        <form [formGroup]="UploadForm">
+        <input (change)="fileChange($event)"  id="files" type="file" class="btn btn-default"  formControlName="fileinput"  accept=".csv" style="visibility:hidden;"/>
+        </form>
+    </div>
+
+</div>
+-->
+  <p class="sample_data"> {{ hereissample }}</p>
+  <div class="sample_data">
+    <p *ngFor="let character of parsedtest">
+        {{ character }}
+    </p>
+    </div>
+
+  <div class="selectsrcdstser">
+    <p>
+      <mat-form-field  class="input-headline">
+        <input matInput placeholder="Firewall name" [formControl]="myallfirewallpolicies" [matAutocomplete]="auto" >
+        <mat-autocomplete  #auto="matAutocomplete">
+        <mat-option  *ngFor="let option of filteredOptionsFwpolicies | async" [value]="option">
+        {{option}}
+        </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field class="input-headline">
+          <input matInput placeholder="Policy name" [formControl]="policyname">
+        </mat-form-field>
+        </p>
+
+      <p>
+      <mat-select placeholder="select Source Column" class="input-headline" [formControl]="src_select">
+        <mat-option *ngFor="let xxx of parsedheading; let i = index" [value]="i" >
+          {{xxx}}
+        </mat-option>
+      </mat-select>
+      </p>
+      <p>
+      <mat-select placeholder="select Destination Column" class="input-headline" [formControl]="dst_select">
+        <mat-option *ngFor="let xxx of parsedheading; let i = index" [value]="i">
+          {{xxx}}
+        </mat-option>
+      </mat-select>
+      </p>
+      <p>
+      <mat-select placeholder="select Service Column" class="input-headline" [formControl]="ser_select">
+        <mat-option *ngFor="let xxx of parsedheading; let i = index" [value]="i">
+          {{xxx}}
+        </mat-option>
+      </mat-select>
+      </p>
+    <p>
+      <button mat-flat-button color="primary" (click)="submitSelValues('rules')" class="extended-button">Upload</button>
+    </p>
+    <p>
+        {{ stat }}
+    </p>
+  </div>
+</div>
+     </mat-tab>
+
+    <mat-tab label="Upload Network Objects">
+
+    <div class="uploadcontainer">
+      <form [formGroup]="UploadFormNetObj" >
+        <input (change)="fileChangenetobj($event)" type="file" name="uploadfiles" formControlName="fileinputNetObj" accept=".csv"/>
+      </form>
+
+          <p class="sample_data"> {{ hereissamplenetobj }}</p>
+  <div class="sample_data">
+    <p *ngFor="let character of parsedtestnetobj">
+        {{ character }}
+    </p>
+    </div>
+    <p>
+      <mat-form-field  class="input-headline">
+        <input matInput placeholder="Firewall name" [formControl]="myallfirewallpolicies" [matAutocomplete]="auto" >
+        <mat-autocomplete  #auto="matAutocomplete">
+        <mat-option  *ngFor="let option of filteredOptionsFwpolicies | async" [value]="option">
+        {{option}}
+        </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      </p>
+  <p>
+      <button mat-raised-button color="primary" (click)="submitSelValues('netobj')" class="extended-button">Upload</button>
+    </p>
+    <p>
+        {{ statnetobj }}
+    </p>
+    </div>
+     </mat-tab>
+
+     <mat-tab label="Upload Services/Ports">
+     <div class="uploadcontainer">
+      <form [formGroup]="UploadFormNetObj" >
+        <input (change)="fileChangenetobj($event)" type="file" name="uploadfiles" formControlName="fileinputNetObj" accept=".csv"/>
+      </form>
+      <p class="sample_data"> {{ hereissamplenetobj }}</p>
+      <div class="sample_data">
+        <p *ngFor="let character of parsedtestnetobj">
+        {{ character }}
+        </p>
+      </div>
+      <p>
+        <mat-form-field  class="input-headline">
+          <input matInput placeholder="Firewall name" [formControl]="myallfirewallpolicies" [matAutocomplete]="auto" >
+          <mat-autocomplete  #auto="matAutocomplete">
+          <mat-option  *ngFor="let option of filteredOptionsFwpolicies | async" [value]="option">
+          {{option}}
+          </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        </p>
+      <p>
+        <mat-select style="width: 20%;" class="input-headline" placeholder="select TCP/UDP" [formControl]="typeofservice">
+          <mat-option value="TCP">TCP</mat-option>
+          <mat-option value="UDP">UDP</mat-option>
+        </mat-select>
+      </p>
+      <p>
+     <button mat-raised-button (click)="submitSelValues('services')" color="primary" class="extended-button">Upload</button>
+        </p>
+    <p>
+        {{ statnetobj }}
+    </p>
+    </div>
+  </mat-tab>
+  </mat-tab-group>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button matDialogClose color="primary">Dismiss</button>
+    </mat-dialog-actions>
+  </ng-template>
+
+  <body>
+  <div class="splitright" id="cy">
+  </div>
+  </body>
+
+ <!-- Bottom pane/ Table-->
+<mat-drawer #drawer3 class="example-sidenav-right2"  mode="side" opened="true">
+
+<div  class="fwpolicies">
+  <div class="selectcurrentpolicy" >
+    <mat-form-field class="input-headline" appearance="outline" >
+    <mat-select [formControl]="pokemonControl" placeholder="Select fwpolicy">
+        <mat-optgroup *ngFor="let group of pokemonGroups" [label]="group.name"
+                      [disabled]="group.disabled">
+          <mat-option (click)="get_fwrules(group.name,pokemon.value)" *ngFor="let pokemon of group.pokemon" [value]="pokemon.value">
+            {{pokemon.viewValue}}
+          </mat-option>
+        </mat-optgroup>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="selectcurrentpolicy">
+    <mat-form-field class="input-headline" appearance="outline" >
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter table">
+    </mat-form-field>
+  </div>
+  <div class="selectcurrentpolicy">
+      <button mat-flat-button (click)="selectedrowdisplay()" color="primary" class="extended2-button" matTooltipPosition="above" matTooltip="Show selected row in Graph">Show Selected rows</button>
+  </div>
+   <div class="gstatus">
+    <h6>Graph Status: </h6>
+    </div>
+    <div class="selectcurrentpolicy">
+    <p>No of Nodes: {{ noofNodes }} </p>
+    <p>No of Edges: {{ noofEdges }} </p>
+  </div>
+   <div class="healthcheck">
+    <p> {{ message }}</p>
+  </div>
+  <div class="healthcheck">
+    <p>Python status:  </p>
+    <p>Neo4j status:  </p>
+  </div>
+  <div class="paginator">
+  <mat-paginator [pageSizeOptions]="[10,25,50,100]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>
+
+<div class="rulestable">
+
+<table mat-table [dataSource]="dataSource"  matSort class="mat-elevation-z8" #mytable>
+
+  <!-- Checkbox Column -->
+  <ng-container matColumnDef="select">
+    <th  mat-header-cell *matHeaderCellDef class="checkboxtdtr">
+      <mat-checkbox  (change)="$event ? masterToggle() : null"
+                    [checked]="selection.hasValue() && isAllSelected()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected()">
+      </mat-checkbox>
+    </th>
+    <td  mat-cell *matCellDef="let row"class="checkboxtdtr" >
+      <mat-checkbox  (click)="$event.stopPropagation()"
+                    (change)="$event ? selection.toggle(row) : null"
+                    [checked]="selection.isSelected(row)">
+      </mat-checkbox>
+    </td>
+
+
+
+  </ng-container>
+  <!-- Num Column -->
+  <ng-container matColumnDef="Num">
+    <th mat-header-cell  class="rules-num"  *matHeaderCellDef mat-sort-header> No. </th>
+    <td mat-cell class="rules-num"  *matCellDef="let element"> {{element.No}} </td>
+  </ng-container>
+
+   <!-- Type Column -->
+   <ng-container matColumnDef="Type">
+    <th mat-header-cell  class="rules-type" *matHeaderCellDef mat-sort-header> Type </th>
+    <td mat-cell class="border-row" *matCellDef="let element"> {{element.Type}} </td>
+  </ng-container>
+   <!-- Name Column -->
+   <ng-container matColumnDef="Name">
+    <th mat-header-cell class="border-row" *matHeaderCellDef mat-sort-header> Name </th>
+    <td mat-cell class="border-row" *matCellDef="let element"> {{element.Name}} </td>
+  </ng-container>
+
+  <!-- Source Column -->
+  <ng-container matColumnDef="Source">
+    <th mat-header-cell class="border-row" *matHeaderCellDef mat-sort-header> Source </th>
+    <td mat-cell class="border-row" *matCellDef="let element"> {{element.Source}} </td>
+  </ng-container>
+
+  <!-- Destination Column -->
+  <ng-container matColumnDef="Destination">
+    <th mat-header-cell class="border-row" *matHeaderCellDef mat-sort-header> Destination </th>
+    <td mat-cell class="border-row" *matCellDef="let element"> {{element.Destination}} </td>
+  </ng-container>
+
+  <!-- Service Column -->
+  <ng-container matColumnDef="Service">
+    <th mat-header-cell class="border-row" *matHeaderCellDef mat-sort-header> Service </th>
+    <td mat-cell class="border-row" *matCellDef="let element"> {{element.Service}} </td>
+  </ng-container>
+    <!-- Action Column -->
+    <ng-container matColumnDef="Action">
+      <th mat-header-cell class="rules-action" *matHeaderCellDef mat-sort-header> Action </th>
+      <td mat-cell class="border-row" *matCellDef="let element"> {{element.Action}} </td>
+    </ng-container>
+     <!-- Risk Column -->
+     <ng-container matColumnDef="Risk">
+      <th mat-header-cell class="rules-risk" *matHeaderCellDef mat-sort-header> Risk </th>
+      <td mat-cell  [ngStyle]=" (element.Risk==0) && { 'background-color': 'lightgreen' } || (element.Risk>0 && element.Risk<=25) && { 'background-color': '#ff9999' } || (element.Risk>25 && element.Risk<=50) && { 'background-color': '#ff6666' } || (element.Risk>=50) && { 'background-color': '#ff1a1a' } " class="border-row" *matCellDef="let element" ><a class="riskhyperlink" (click)="openDialogWithTemplateRef2(RiskScoreDialog,element.No)"> {{element.Risk}}</a> </td>
+    </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+      (click)="selection.toggle(row)">
+  </tr>
+  </table>
+</div>
+
+
+</mat-drawer>
+
+  <!-- RiskScoreDialog dialog-->
+<ng-template #RiskScoreDialog>
+  <h2 matDialogTitle>Risk score</h2>
+  <mat-dialog-content>
+
+    <mat-tab-group>
+      <mat-tab label="Risk Score">
+        <table class="blackborder">
+          <th width="10%">Rule Id</th>
+          <th width="30%">Service</th>
+          <th width="50%">Reason</th>
+          <th width="10%">Risk value</th>
+          <tr *ngFor="let every of riskreasondata">
+            <td> {{ every.riskid }}</td>
+            <td>{{ every.service }}</td>
+            <td>{{ every.reason }}</td>
+            <td>{{ every.riskvalue }}</td>
+          </tr>
+        </table>
+
+
+        </mat-tab>
+    </mat-tab-group>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+
+    <button mat-button matDialogClose color="primary">Dismiss</button>
+  </mat-dialog-actions>
+  </ng-template>
+
+
+  </mat-drawer-container>
+
+  <router-outlet></router-outlet>
+
+  <ngx-spinner
+  bdColor="rgba(51,51,51,0.6)"
+  color="#c3c1c9"
+size = "medium"
+type = "ball-fussion"
+>
+<h5 style="font-size: 20px; color: white">{{ spinnertext }}</h5>
+</ngx-spinner>
+
+
+
+

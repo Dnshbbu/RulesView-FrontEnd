@@ -1,0 +1,141 @@
+<head>
+
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+    <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  </head>
+
+
+    <div>
+      <h3>1. "Any" in the Rules</h3>      
+      
+      <div class="container">
+        <div>
+          <form (ngSubmit)="onSubmit()" #heroForm="ngForm" autocomplete="off">    
+          <table class="blackborder">
+            <th width="70%">Rules</th>
+            <th width="30%">Risk</th>
+            <tr>
+              <td>Any in the One column</td>
+              <td>			  
+              <div class="form-group">
+              <input type="number" class="form-control" id="name"
+                    required
+                    [(ngModel)]="model.onecolumn" name="name"
+                    #name="ngModel">
+              <!-- <div [hidden]="name.valid || name.pristine"
+                class="alert alert-danger">
+                Name is required
+              </div> -->
+              </div>              
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Any in the Two columns </td>
+                    <td>
+                      
+                      <div class="form-group">
+                        <input type="number" class="form-control" id="twocolumns"
+                              [(ngModel)]="model.twocolumns" name="twocolumns">
+                      </div>
+                    </td> 
+                  </tr>
+                  <tr>
+                    <td>Any in the Three columns </td>
+                    <td>
+                      <div class="form-group">
+                        <input type="number" class="form-control" id="threecolumns"
+                              [(ngModel)]="model.threecolumns" name="threecolumns">
+                      </div>
+                      
+                    </td>
+                  </tr>
+                </table>
+            
+              
+              <!-- <div [hidden]="power.valid || power.pristine" class="alert alert-danger">
+                Power is required
+              </div> -->
+
+            <button type="submit" class="btn btn-success" [disabled]="!heroForm.form.valid">Save</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  
+    <div>
+  <h3>2. Insecure protocols/ports</h3> 
+  <div autocomplete="off">
+    <mat-form-field class="input-headline">
+      <input matInput type="number" placeholder="Risk value" [(ngModel)]="insecureriskvalue">
+    </mat-form-field>
+  </div>
+    <div>
+  <dual-list [sort]="true" [draggable]= "true" [filter]="true" [source]="source" [(destination)]="insecureproto" height="150px" ></dual-list>              
+</div>
+<button type="submit" class="btn btn-success" (click)="sendinsecureproto('insecureproto')">Save</button>
+</div>
+
+<div>
+  <h3>3. Internal to External connections - Approved Ports/Services</h3>
+  <div autocomplete="off">
+    <mat-form-field class="input-headline">
+      <input matInput type="number" placeholder="Risk value" [(ngModel)]="itoeriskvalue">
+    </mat-form-field>
+  </div>
+  <div>
+  <dual-list [sort]="true" [draggable]= "true" [filter]="true" [source]="source" [(destination)]="InttoExt" height="150px" ></dual-list>              
+</div>
+<button type="submit" class="btn btn-success" (click)="sendinsecureproto('inttoext')">Save</button>
+</div>
+
+<div>
+<h3>4. External to Internal connections - Approved Ports/Services</h3>
+<div autocomplete="off">
+  <mat-form-field class="input-headline">
+    <input matInput type="number" placeholder="Risk value" [(ngModel)]="etoiriskvalue">
+  </mat-form-field>
+</div>
+<div>
+<dual-list [sort]="true" [draggable]= "true" [filter]="true" [source]="source" [(destination)]="ExttoInt" height="150px" ></dual-list>              
+</div>
+<button type="submit" class="btn btn-success" (click)="sendinsecureproto('exttoint')">Save</button>
+</div>
+
+
+<div>
+<h3>5. Exclusions</h3>
+<div autocomplete="off">
+  <mat-form-field class="input-headline">
+    <mat-label>Additional Private IP addresses</mat-label>
+    <textarea
+        matInput
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="3"
+        cdkAutosizeMaxRows="10" [formControl]="exclusion_privateip">
+    </textarea>
+</mat-form-field>
+</div>
+<div autocomplete="off">
+  <mat-form-field class="input-headline">
+    <mat-label>Rule Numbers to exclude</mat-label>
+    <textarea
+        matInput
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="3"
+        cdkAutosizeMaxRows="10" [formControl]="exclusion_ruleno">
+    </textarea>
+</mat-form-field>
+</div>
+<button type="submit" class="btn btn-success" (click)="sendinsecureproto('exttoint')">Save</button>
+</div>
+
+  <ngx-spinner
+  bdColor="rgba(51,51,51,0.6)"
+  color="#c3c1c9"
+size = "medium"
+type = "ball-fussion"
+>
+<h5 style="font-size: 20px; color: white">{{ spinnertext }}</h5>
+</ngx-spinner>
