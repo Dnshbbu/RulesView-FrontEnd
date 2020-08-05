@@ -1,7 +1,7 @@
 # RulesView-Frontend
 This is the repo for the front end of the RulesView app
 
-# Below is how the tool looks like
+# This is how the tool looks like
 ![Image](https://github.com/Dnshbbu/RulesView-Frontend/blob/master/SampleScreenshot/sampless.png?raw=true)
 
 # Steps to reproduce the Frontend of RulesView
