@@ -24,6 +24,3 @@ This is the repo for the front end of the RulesView app
 3. [Cytoscape.js](https://js.cytoscape.org/)
 
 
-
-
-
