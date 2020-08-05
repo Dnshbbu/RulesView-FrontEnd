@@ -23,5 +23,3 @@ This is the repo for the front end of the RulesView app
 2. [Neo4j graph database](https://neo4j.com/)
 3. [Cytoscape.js](https://js.cytoscape.org/)
 
-
-
